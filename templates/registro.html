@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Conta - Tech Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+    <div style="background: white; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 360px; text-align: center;">
+        <div style="margin-bottom: 20px;">
+            <h1 style="font-size: 1.4rem; color: #1f2937; font-weight: 800;">Criar Nova Conta</h1>
+            <p style="color: #6b7280; font-size: 0.85rem; margin-top: 4px;">Junte-se à TechStore</p>
+        </div>
+
+        {% if erro %}
+            <div style="background: #fee2e2; color: #dc2626; padding: 10px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 15px; font-weight: 600;">{{ erro }}</div>
+        {% endif %}
+
+        <form action="/registro" method="POST" style="display: flex; flex-direction: column; gap: 14px;">
+            <input type="text" name="nome" placeholder="Seu Nome Completo" required style="padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; outline: none;">
+            <input type="email" name="email" placeholder="Seu e-mail" required style="padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; outline: none;">
+            <input type="password" name="senha" placeholder="Crie uma senha" required style="padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; outline: none;">
+            <button type="submit" class="btn-comprar-direto" style="padding: 12px; border-radius: 8px; font-size: 1rem;">Cadastrar</button>
+        </form>
+
+        <p style="margin-top: 15px; font-size: 0.9rem;"><a href="/login" style="color: #2563eb; font-weight: bold;">Já tem uma conta? Faça login</a></p>
+    </div>
+</body>
+</html>

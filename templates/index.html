@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech & Hardware Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand-grupo">
+                <a href="/" class="logo-link">
+                    <img src="{{ url_for('static', filename='imagens/logo.png') }}" alt="Logo" class="logo-img-maior" onerror="this.style.display='none'; document.getElementById('logo-texto').style.display='block';">
+                    <span id="logo-texto" style="display:none; color: white; font-weight: bold; font-size: 1.3rem;">TechStore</span>
+                </a>
+                <a href="/" class="btn-inicio">🏠 Início</a>
+            </div>
+
+            <div class="barra-pesquisa-form" style="padding: 0 10px;">
+                <input type="text" name="busca" placeholder="Pesquisar peças, periféricos..." value="{{ termo_busca }}" class="input-pesquisa">
+                <span style="color: #6b7280; font-size: 0.9rem; padding-right: 5px;">🔍</span>
+            </div>
+
+            <div class="navbar-links">
+                <a href="/suporte" class="nav-link">💬 Suporte</a>
+                {% if session.get('usuario_id') %}
+                    <a href="/meus-pedidos" class="nav-link">📦 Meus Pedidos</a>
+                    <a href="/logout" class="nav-link" style="color: #ef4444;">Sair ({{ session.get('usuario_nome') }})</a>
+                {% else %}
+                    <a href="/login" class="nav-link">👤 Entrar</a>
+                {% endif %}
+                <a href="/carrinho" class="nav-btn-carrinho">🛒 Carrinho ({{ qtd_carrinho }})</a>
+            </div>
+        </div>
+
+        <div class="filtros-container">
+            <a href="/" class="filtro-btn {% if not categoria_atual and not termo_busca %}ativo{% endif %}">Todos</a>
+            <a href="/?categoria=Periféricos" class="filtro-btn {% if categoria_atual == 'Periféricos' %}ativo{% endif %}">Periféricos</a>
+            <a href="/?categoria=Hardware" class="filtro-btn {% if categoria_atual == 'Hardware' %}ativo{% endif %}">Hardware</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="vitrine">
+            {% for produto in estoque %}
+                <div class="card-produto">
+                    <a href="/produto/{{ produto.id }}" class="imagem-container">
+                        <img src="{{ url_for('static', filename='imagens/' + produto.imagem) }}" alt="{{ produto.nome }}" class="produto-img">
+                    </a>
+                    
+                    <div class="produto-info">
+                        <span class="produto-codigo">{{ produto.categoria }}</span>
+                        <a href="/produto/{{ produto.id }}" style="text-decoration: none;">
+                            <h3 class="produto-nome">{{ produto.nome }}</h3>
+                        </a>
+                        <p class="produto-preco">R$ {{ "%.2f"|format(produto.preco) }}</p>
+                        <p class="produto-estoque">Disponível: <strong>{{ produto.quantidade }}</strong> un.</p>
+                    </div>
+                    
+                    <div class="card-botoes">
+                        <form action="/comprar-direto/{{ produto.id }}" method="POST">
+                            <button type="submit" class="btn-comprar-direto">⚡ Comprar Agora</button>
+                        </form>
+                        
+                        <form onsubmit="adicionarComAjax(event, '/adicionar/{{ produto.id }}')">
+                            <button type="submit" class="btn-add-carrinho">🛒 Adicionar ao Carrinho</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+</body>
+</html>

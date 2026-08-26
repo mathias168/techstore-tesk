@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido Realizado - Tech Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 450px;">
+        <h2 style="color: #059669; font-size: 1.8rem; margin-bottom: 10px;">🎉 Pedido Confirmado!</h2>
+        <p style="color: #4b5563; font-size: 1rem; margin-bottom: 20px;">Obrigado, <strong>{{ nome }}</strong>! Seu pedido de <strong>{{ produto.nome }}</strong> foi registrado com sucesso via <strong>{{ pagamento }}</strong> (Total: R$ {{ "%.2f"|format(total) }} c/ frete).</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="/meus-pedidos" class="btn-comprar-direto" style="text-decoration: none; padding: 12px;">Ver Meus Pedidos</a>
+            <a href="/" style="color: #2563eb; text-decoration: none; font-weight: 600; margin-top: 5px;">Voltar para a Loja</a>
+        </div>
+    </div>
+</body>
+</html>

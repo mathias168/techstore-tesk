@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Seu Carrinho - Tech Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo-link">
+                <img src="{{ url_for('static', filename='imagens/logo.png') }}" alt="Logo" class="logo-img-maior" onerror="this.style.display='none';">
+            </a>
+            <div class="navbar-links">
+                <a href="/" class="btn-inicio">🏠 Continuar Comprando</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 900px;">
+        <h2 style="margin-bottom: 20px; color: #fff; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">🛒 Seu Carrinho de Compras</h2>
+        
+        {% if itens %}
+            <div class="carrinho-card">
+                <table class="tabela-carrinho">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Preço Unit.</th>
+                            <th>Qtd</th>
+                            <th>Subtotal</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in itens %}
+                            <tr>
+                                <td style="display: flex; align-items: center; gap: 12px;">
+                                    <img src="{{ url_for('static', filename='imagens/' + item.produto.imagem) }}" alt="" style="width: 50px; height: 50px; object-fit: contain; background: #f3f4f6; border-radius: 6px; padding: 4px;">
+                                    <strong>{{ item.produto.nome }}</strong>
+                                </td>
+                                <td>R$ {{ "%.2f"|format(item.produto.preco) }}</td>
+                                <td>{{ item.quantidade }}</td>
+                                <td style="font-weight: bold; color: #059669;">R$ {{ "%.2f"|format(item.subtotal) }}</td>
+                                <td>
+                                    <form action="/remover-carrinho/{{ item.produto.id }}" method="POST">
+                                        <button type="submit" style="background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">Remover</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- MÓDULO DE CÁLCULO DE FRETE -->
+                <div style="margin-top: 25px; padding: 15px; background: #f9fafb; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <form action="/calcular-frete" method="POST" style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" name="cep" placeholder="Digite seu CEP" required style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;">
+                        <button type="submit" style="background: #2563eb; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">Calcular Frete</button>
+                    </form>
+                    <div>
+                        <span style="font-weight: bold; color: #4b5563;">Frete: </span>
+                        <span style="color: #059669; font-weight: bold;">R$ {{ "%.2f"|format(session.get('frete_valor', 25.00)) }}</span>
+                    </div>
+                </div>
+
+                <div class="carrinho-total">
+                    <h2 style="font-size: 1.5rem; color: #1f2937;">Total Geral (c/ Frete): <span style="color: #059669;">R$ {{ "%.2f"|format(total + session.get('frete_valor', 25.00)) }}</span></h2>
+                    
+                    <form action="/finalizar" method="POST">
+                        <button type="submit" class="btn-finalizar">
+                            Finalizar Compra com Segurança 🚀
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div style="text-align: center; background: white; padding: 50px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                <h3 style="color: #4b5563; font-size: 1.4rem; margin-bottom: 10px;">Seu carrinho está vazio!</h3>
+                <p style="color: #6b7280; margin-bottom: 20px;">Explore nossa vitrine e adicione os melhores hardwares.</p>
+                <a href="/" class="btn-comprar-direto" style="display: inline-block; width: auto; padding: 12px 30px; text-decoration: none;">Voltar para a Vitrine</a>
+            </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>

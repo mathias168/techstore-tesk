@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Pedidos - Tech Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo-link">
+                <img src="{{ url_for('static', filename='imagens/logo.png') }}" alt="Logo" class="logo-img-maior" onerror="this.style.display='none';">
+            </a>
+            <div class="navbar-links">
+                <a href="/" class="btn-inicio">🏠 Voltar à Loja</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 900px;">
+        <h2 style="margin-bottom: 20px; color: #fff; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">📦 Histórico de Pedidos</h2>
+
+        {% if pedidos %}
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                {% for p in pedidos %}
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h3 style="color: #1f2937; margin-bottom: 5px;">Pedido #{{ p.id }}</h3>
+                            <p style="color: #4b5563; font-size: 0.95rem;">Itens: <strong>{{ p.itens_resumo }}</strong></p>
+                            <p style="color: #6b7280; font-size: 0.85rem; margin-top: 4px;">Pagamento: {{ p.pagamento }}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-size: 1.2rem; font-weight: 800; color: #059669; margin-bottom: 8px;">R$ {{ "%.2f"|format(p.total) }}</p>
+                            <a href="/comprovante/{{ p.id }}" style="background: #2563eb; color: white; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-size: 0.9rem; font-weight: bold; display: inline-block;">📄 Baixar Recibo PDF</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; background: white; padding: 40px; border-radius: 16px;">
+                <h3>Você ainda não fez nenhum pedido!</h3>
+                <p style="margin-top: 10px; color: #6b7280;">Acesse a vitrine e faça sua primeira compra.</p>
+                <a href="/" class="btn-comprar-direto" style="display: inline-block; width: auto; margin-top: 15px; padding: 10px 25px; text-decoration: none;">Ir para a Vitrine</a>
+            </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>

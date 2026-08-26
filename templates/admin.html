@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Administrativo - Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand-grupo">
+                <a href="/admin" class="logo-link">
+                    <img src="{{ url_for('static', filename='imagens/logo.png') }}" alt="Logo" class="logo-img-maior" onerror="this.style.display='none';">
+                    <span id="logo-texto" style="display:none; color: white; font-weight: bold; font-size: 1.3rem;">TechStore</span>
+                </a>
+                <a href="/" class="btn-inicio">👀 Ver Loja (Cliente)</a>
+            </div>
+
+            <div class="navbar-links">
+                <a href="/logout" class="nav-link" style="color: #ef4444; font-weight: bold;">Sair do Admin</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+            <h2 style="color: #fff; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">📦 Gerenciamento de Estoque</h2>
+            
+            <button onclick="document.getElementById('modal-cadastro').style.display='flex'" class="btn-comprar-direto" style="width: auto; padding: 12px 24px; font-size: 1rem;">
+                ➕ Adicionar Novo Produto
+            </button>
+        </div>
+
+        <div id="modal-cadastro" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); justify-content:center; align-items:center; z-index: 1000;">
+            <div style="background: white; padding: 30px; border-radius: 16px; width: 400px; box-shadow: 0 20px 25px rgba(0,0,0,0.2); position: relative;">
+                <h3 style="margin-bottom: 20px; color: #1f2937;">Cadastrar Novo Produto</h3>
+                
+                <form action="/admin/cadastrar" method="POST" style="display: flex; flex-direction: column; gap: 12px;">
+                    <input type="text" name="nome" placeholder="Nome do Produto" required style="padding: 10px; border: 1px solid #ccc; border-radius: 8px;">
+                    
+                    <select name="categoria" required style="padding: 10px; border: 1px solid #ccc; border-radius: 8px; background: white;">
+                        <option value="Periféricos">Periféricos</option>
+                        <option value="Hardware">Hardware</option>
+                    </select>
+
+                    <input type="number" step="0.01" name="preco" placeholder="Preço (R$)" required style="padding: 10px; border: 1px solid #ccc; border-radius: 8px;">
+                    <input type="number" name="quantidade" placeholder="Quantidade inicial" required style="padding: 10px; border: 1px solid #ccc; border-radius: 8px;">
+                    <input type="text" name="imagem" placeholder="Nome exato da imagem (ex: mouse.jpg)" required style="padding: 10px; border: 1px solid #ccc; border-radius: 8px;">
+
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button type="submit" class="btn-comprar-direto" style="padding: 10px;">Salvar Produto</button>
+                        <button type="button" onclick="document.getElementById('modal-cadastro').style.display='none'" style="background: #ef4444; color: white; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: bold;">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="vitrine">
+            {% for produto in estoque %}
+                <div class="card-produto">
+                    <div class="imagem-container">
+                        <img src="{{ url_for('static', filename='imagens/' + produto.imagem) }}" alt="{{ produto.nome }}" class="produto-img">
+                    </div>
+                    
+                    <div class="produto-info">
+                        <span class="produto-codigo">{{ produto.categoria }}</span>
+                        <h3 class="produto-nome">{{ produto.nome }}</h3>
+                        <p class="produto-preco">R$ {{ "%.2f"|format(produto.preco) }}</p>
+                        <p class="produto-estoque">Estoque Atual: <strong>{{ produto.quantidade }}</strong> un.</p>
+                    </div>
+                    
+                    <form action="/atualizar" method="POST" class="formulario-estoque">
+                        <input type="hidden" name="codigo" value="{{ produto.id }}">
+                        <input type="number" name="quantidade" min="1" required class="input-qtd" placeholder="Qtd">
+                        
+                        <div class="botoes-acao">
+                            <button type="submit" name="operacao" value="entrada" class="btn btn-entrada" title="Adicionar">+</button>
+                            <button type="submit" name="operacao" value="saida" class="btn btn-saida" title="Remover">-</button>
+                        </div>
+                    </form>
+
+                    <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                        <form action="/admin/remover/{{ produto.id }}" method="POST" onsubmit="return confirm('Deseja realmente excluir este produto?')">
+                            <button type="submit" style="width: 100%; background: #dc2626; color: white; border: none; padding: 8px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                                🗑️ Excluir Produto
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+</body>
+</html>

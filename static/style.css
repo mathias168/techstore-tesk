@@ -1,0 +1,518 @@
+/* ==========================================================
+   1. RESET E CONFIGURAÇÕES GLOBAIS COM FUNDO ANIMADO
+   ========================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    /* Fundo Gradiente Animado Moderno */
+    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e293b);
+    background-size: 400% 400%;
+    animation: gradientAnimado 15s ease infinite;
+    color: #333;
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+@keyframes gradientAnimado {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* ==========================================================
+   2. NAVBAR / CABEÇALHO SUPERIOR
+   ========================================================== */
+.navbar {
+    background: rgba(17, 24, 39, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2.5rem;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.navbar-brand-grupo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-img-maior {
+    height: 60px;
+    object-fit: contain;
+}
+
+.btn-inicio {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-inicio:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================================
+   3. BARRA DE PESQUISA ESTILIZADA E MODERNA
+   ========================================================== */
+.barra-pesquisa-form {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 380px;
+    transition: all 0.3s ease;
+}
+
+.barra-pesquisa-form:focus-within {
+    background: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.input-pesquisa {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    background: transparent;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.barra-pesquisa-form:focus-within .input-pesquisa {
+    color: #1f2937;
+}
+
+.barra-pesquisa-form:focus-within .input-pesquisa::placeholder {
+    color: #9ca3af;
+}
+
+.input-pesquisa::placeholder {
+    color: #d1d5db;
+}
+
+.btn-pesquisar {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-pesquisar:hover {
+    background-color: #2563eb;
+}
+
+
+/* ==========================================================
+   4. LINKS DA NAVBAR (SUPORTE, LOGIN, CARRINHO)
+   ========================================================== */
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+}
+
+.nav-btn-carrinho {
+    background-color: #10b981;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.nav-btn-carrinho:hover {
+    background-color: #059669;
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================================
+   5. FILTROS POR CATEGORIA
+   ========================================================== */
+.filtros-container {
+    max-width: 1200px;
+    margin: 15px auto 0 auto;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+}
+
+.filtro-btn {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #9ca3af;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s;
+}
+
+.filtro-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.filtro-btn.ativo {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+
+
+/* ==========================================================
+   6. VITRINE E LAYOUT PRINCIPAL
+   ========================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.vitrine {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+
+/* ==========================================================
+   7. CARTÃO DO PRODUTO (CARD)
+   ========================================================== */
+.card-produto {
+    background-color: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-produto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+}
+
+.imagem-container {
+    width: 100%;
+    height: 210px;
+    background-color: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid #f3f4f6;
+    text-decoration: none;
+}
+
+.produto-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    transition: transform 0.4s ease;
+}
+
+.card-produto:hover .produto-img {
+    transform: scale(1.05);
+}
+
+.produto-info {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.produto-codigo {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #6366f1;
+    background-color: #e0e7ff;
+    padding: 3px 8px;
+    border-radius: 6px;
+    align-self: flex-start;
+    margin-bottom: 8px;
+}
+
+.produto-nome {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.produto-preco {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #059669;
+    margin-bottom: 6px;
+}
+
+.produto-estoque {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.produto-estoque strong {
+    color: #374151;
+}
+
+
+/* ==========================================================
+   8. BOTÕES DE AÇÃO DOS PRODUTOS
+   ========================================================== */
+.card-botoes {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-comprar-direto {
+    width: 100%;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    padding: 11px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+    transition: background 0.2s, transform 0.1s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-comprar-direto:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.btn-comprar-direto:active {
+    transform: scale(0.98);
+}
+
+.btn-add-carrinho {
+    width: 100%;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border: none;
+    padding: 11px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-add-carrinho:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+}
+
+.btn-add-carrinho:active {
+    transform: scale(0.98);
+}
+
+
+/* ==========================================================
+   9. ESTILOS DO CARRINHO DE COMPRAS E PAINEL ADMIN
+   ========================================================== */
+.carrinho-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabela-carrinho {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabela-carrinho th {
+    padding: 14px;
+    background-color: #f9fafb;
+    color: #4b5563;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.tabela-carrinho td {
+    padding: 18px 14px;
+    border-bottom: 1px solid #f3f4f6;
+    color: #1f2937;
+    font-size: 1rem;
+}
+
+.carrinho-total {
+    margin-top: 30px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.btn-finalizar {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-finalizar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+}
+
+/* Painel Admin - Formulários de Entrada e Saída */
+.formulario-estoque {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-qtd {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-qtd:focus {
+    border-color: #6366f1;
+}
+
+.botoes-acao {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn-entrada { background-color: #10b981; }
+.btn-entrada:hover { background-color: #059669; }
+
+.btn-saida { background-color: #ef4444; }
+.btn-saida:hover { background-color: #dc2626; }
+
+
+/* ==========================================================
+   10. ALERTA FLUTUANTE (TOAST NOTIFICATION)
+   ========================================================== */
+#toast-alerta {
+    position: fixed;
+    bottom: -80px;
+    right: 30px;
+    background-color: #10b981;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: bottom 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    z-index: 1000;
+}
+
+#toast-alerta.toast-visivel {
+    bottom: 30px;
+    opacity: 1;
+}
